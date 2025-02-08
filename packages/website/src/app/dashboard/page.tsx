@@ -34,6 +34,8 @@ export default function Dashboard() {
     },
   ]);
 
+  console.log(user);
+
   const [reviewModal, setReviewModal] = useState({
     isOpen: false,
     orderId: "",
@@ -107,6 +109,8 @@ export default function Dashboard() {
           onClose={() => setReviewModal({ isOpen: false, orderId: "" })}
           onSubmit={(review) => {
             // Handle review submission
+            console.log(review);
+
             setOrders(
               orders.map((order) =>
                 order.id === reviewModal.orderId
