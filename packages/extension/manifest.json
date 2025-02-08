@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "foodiee.ai",
+  "version": "1.0",
+  "description": "Foodiee.ai is a smart browser extension that simplifies ordering food abroad. It automatically translates menus and filters options based on your dietary preferences, ensuring that you can confidently choose meals that suit your lifestyle, no matter where you travel.",
+  "action": {
+    "default_popup": "src/html/popup.html",
+    "default_icon": {
+      "16": "src/images/icon16.png",
+      "48": "src/images/icon48.png",
+      "128": "src/images/icon128.png"
+    }
+  },
+  "permissions": ["storage", "webRequest", "tabs"],
+  "content_scripts": [
+    {
+      "matches": ["https://*.ubereats.com/*"],
+      "js": ["src/js/content.js"]
+    }
+  ]
+}

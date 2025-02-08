@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Settings - Uber Eats Menu Scraper</title>
+    <link rel="stylesheet" href="../css/settings.css">
+  </head>
+  <body>
+    <a href="popup.html" class="back-link">Back to Menu</a>
+    <h1>Settings</h1>
+
+    <div class="section">
+      <div class="section-title">Dietary Preferences</div>
+      <select id="dietaryPreference">
+        <option value="">None</option>
+        <option value="vegetarian">Vegetarian</option>
+        <option value="vegan">Vegan</option>
+        <option value="halal">Halal</option>
+        <option value="kosher">Kosher</option>
+      </select>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Allergies</div>
+      <div id="allergyTags" class="allergy-tags"></div>
+      <input type="text" id="allergyInput" placeholder="Type allergy and press Enter">
+    </div>
+
+    <button class="save" id="saveSettings">Save Settings</button>
+
+    <script src="../js/settings.js"></script>
+  </body>
+</html> 
