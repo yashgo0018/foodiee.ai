@@ -1,4 +1,6 @@
+import { cacher } from "@/cacher";
 import { openai } from "@/openai";
+import { createHash } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -20,6 +22,14 @@ export const POST = async (req: NextRequest) => {
 
   if (!result.success) {
     return NextResponse.json({ errors: result.error.issues }, { status: 400 });
+  }
+
+  const hash = createHash("sha256")
+    .update(JSON.stringify(result.data))
+    .digest("hex");
+
+  if (cacher[hash]) {
+    return NextResponse.json(JSON.parse(cacher[hash]));
   }
 
   const { items, allergies, dietaryPreferences, language } = result.data;
@@ -67,6 +77,8 @@ export const POST = async (req: NextRequest) => {
     });
 
     const response = JSON.parse(completion.choices[0].message.content || "");
+
+    cacher[hash] = JSON.stringify(response);
 
     return NextResponse.json(response);
   } catch (error) {
