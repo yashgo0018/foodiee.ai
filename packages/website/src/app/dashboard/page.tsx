@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { usePrivy } from "@privy-io/react-auth";
+import { redirect } from "next/navigation";
 
 interface Order {
   id: string;
@@ -13,7 +14,7 @@ interface Order {
 }
 
 export default function Dashboard() {
-  const { user, authenticated } = usePrivy();
+  const { user, authenticated, ready } = usePrivy();
   const [orders, setOrders] = useState<Order[]>([
     // Temporary mock data
     {
@@ -41,14 +42,12 @@ export default function Dashboard() {
     orderId: "",
   });
 
+  if (!ready) {
+    return <div>Loading...</div>;
+  }
+
   if (!authenticated) {
-    return (
-      <div className="min-h-screen bg-gray-50 p-8">
-        <div className="text-center">
-          Please login to view your order history
-        </div>
-      </div>
-    );
+    return redirect("/");
   }
 
   const handleReviewClick = (orderId: string) => {
