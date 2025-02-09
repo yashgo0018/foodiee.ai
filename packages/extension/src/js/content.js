@@ -45,9 +45,36 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     sendResponse({ menuItems: menuItems });
   }
 
-  // Return true to indicate we will send a response asynchronously
+  if (request.action === "scrollToItem") {
+    const element = document.querySelector(`[data-testid="${request.testId}"]`);
+    if (element) {
+      // Scroll the element into view
+      element.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      // Add highlight effect
+      const originalBackground = element.style.backgroundColor;
+      element.style.backgroundColor = "#fff3e0"; // Soft orange highlight
+      element.style.transition = "background-color 0.5s";
+
+      // Remove highlight after 2 seconds
+      setTimeout(() => {
+        element.style.backgroundColor = originalBackground;
+      }, 2000);
+    }
+  }
+
   return true;
 });
 
 // Log when content script is loaded
 console.log("Uber Eats Menu Scraper content script loaded");
+
+// Add CSS for highlight animation
+const style = document.createElement("style");
+style.textContent = `
+  @keyframes highlightFade {
+    from { background-color: #fff3e0; }
+    to { background-color: transparent; }
+  }
+`;
+document.head.appendChild(style);

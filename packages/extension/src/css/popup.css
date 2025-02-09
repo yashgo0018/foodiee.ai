@@ -14,8 +14,16 @@ h1 {
 }
 
 .menu-item {
-  border-bottom: 1px solid #eee;
-  padding: 8px 0;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.menu-item:hover {
+  background-color: #f5f5f5;
 }
 
 .menu-item h3 {
@@ -33,7 +41,7 @@ h1 {
   font-weight: bold;
 }
 
-#scrapeButton {
+#scrapeButton, #filterButton {
   background-color: #067A46;
   color: white;
   border: none;
@@ -43,7 +51,7 @@ h1 {
   margin-bottom: 10px;
 }
 
-#scrapeButton:hover {
+#scrapeButton:hover, #filterButton:hover {
   background-color: #056835;
 }
 
@@ -57,4 +65,21 @@ h1 {
 
 .settings-link:hover {
   text-decoration: underline;
+}
+
+.menu-item.unsuitable {
+  background-color: #fff5f5;
+  border-color: #feb2b2;
+}
+
+.translation-note {
+  font-size: 0.9em;
+  color: #4a5568;
+  font-style: italic;
+}
+
+.warning {
+  color: #c53030;
+  font-size: 0.9em;
+  margin-top: 5px;
 } 

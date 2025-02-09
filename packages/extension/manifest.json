@@ -11,7 +11,8 @@
       "128": "src/images/icon128.png"
     }
   },
-  "permissions": ["storage", "webRequest", "tabs"],
+  "permissions": ["storage", "webRequest", "tabs", "contextMenus"],
+  "host_permissions": ["http://localhost:3002/*"],
   "content_scripts": [
     {
       "matches": ["https://*.ubereats.com/*"],
