@@ -12,12 +12,13 @@ const processUserRequestsValidator = z.object({
     })
   ),
   language: z.string(),
-  allergies: z.string(),
-  dietaryPreferences: z.string(),
+  allergies: z.array(z.string()),
+  dietaryPreference: z.string(),
 });
 
 export const POST = async (req: NextRequest) => {
   const rawData = await req.json();
+  console.log(rawData);
   const result = processUserRequestsValidator.safeParse(rawData);
 
   if (!result.success) {
@@ -32,14 +33,14 @@ export const POST = async (req: NextRequest) => {
     return NextResponse.json(JSON.parse(cacher[hash]));
   }
 
-  const { items, allergies, dietaryPreferences, language } = result.data;
+  const { items, allergies, dietaryPreference, language } = result.data;
 
   const prompt = `
     Given the following food items, dietary preferences, and allergies, please analyze each item and provide:
     1. A translation to ${language} if the name is not in ${language}
     2. Whether the item is suitable based on the dietary preferences and allergies
 
-    Dietary Preferences: ${dietaryPreferences}
+    Dietary Preference: ${dietaryPreference}
     Allergies: ${allergies}
 
     Items:
