@@ -21,7 +21,7 @@ export default function Login() {
 
         if (isExtension) {
           // Send message to extension
-          chrome.runtime.sendMessage(publicEnv.NEXT_PUBLIC_EXTENSION_ID, {
+          chrome.runtime.sendMessage(publicEnv.extensionId, {
             type: "LOGIN_SUCCESS",
             token: token,
             email: user.email,
