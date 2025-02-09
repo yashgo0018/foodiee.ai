@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { usePrivy } from "@privy-io/react-auth";
 
 const navigation = [
   { name: "Features", href: "#features" },
@@ -14,6 +15,7 @@ const navigation = [
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { authenticated, login, logout } = usePrivy();
 
   return (
     <nav className="fixed w-full bg-white/90 backdrop-blur-md z-50 shadow-sm">
@@ -46,9 +48,24 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
-            <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full transition-colors">
-              Install Now
-            </button>
+            {!authenticated ? (
+              <button
+                onClick={login}
+                className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full transition-colors"
+              >
+                Sign In
+              </button>
+            ) : (
+              <>
+                <Link
+                  href="/dashboard"
+                  className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-full transition-colors"
+                >
+                  My Account
+                </Link>
+                <button onClick={logout}>Sign Out</button>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
